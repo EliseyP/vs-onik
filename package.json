@@ -1,0 +1,77 @@
+{
+    "name": "vsonik",
+    "displayName": "vs-onik",
+    "description": "Onik utilites",
+    "version": "0.0.3",
+    "publisher": "EliseyP",
+    "engines": {
+        "vscode": "^1.28.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "icon": "Onik.png",
+    "activationEvents": [
+        "onCommand:extension.onik", 
+        "onCommand:extension.onik_titled",
+        "onCommand:extension.onik_titles_open",
+        "onCommand:extension.onik_digits",
+        "onCommand:extension.ki",
+        "onCommand:extension.chl_start",
+        "onCommand:extension.chl_end_o",
+        "onCommand:extension.chl_end_e",
+        "onCommand:extension.ch_acute"
+    ],
+    "main": "./extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.onik",
+                "title": "onik"
+            },
+            {
+                "command": "extension.onik_titled",
+                "title": "onik_titled"
+            },
+            {
+                "command": "extension.onik_titles_open",
+                "title": "onik_titles_open"
+            },
+            {
+                "command": "extension.onik_digits",
+                "title": "onik_digits"
+            },
+            {
+                "command": "extension.ki",
+                "title": "ki"
+            },
+            {
+                "command": "extension.chl_start",
+                "title": "chls"
+            },
+            {
+                "command": "extension.chl_end_o",
+                "title": "chlo"
+            },
+            {
+                "command": "extension.chl_end_e",
+                "title": "chle"
+            },
+            {
+                "command": "extension.ch_acute",
+                "title": "chac"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.21",
+        "eslint": "^4.11.0",
+        "@types/node": "^8.10.25",
+        "@types/mocha": "^2.2.42"
+    }
+}
