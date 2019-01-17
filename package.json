@@ -17,53 +17,53 @@
     ],
     "icon": "Onik.png",
     "activationEvents": [
-        "onCommand:extension.onik", 
-        "onCommand:extension.onik_titled",
-        "onCommand:extension.onik_titles_open",
-        "onCommand:extension.onik_digits",
-        "onCommand:extension.ki",
-        "onCommand:extension.chl_start",
-        "onCommand:extension.chl_end_o",
-        "onCommand:extension.chl_end_e",
-        "onCommand:extension.ch_acute"
+        "onCommand:onik.onik", 
+        "onCommand:onik.onik_titled",
+        "onCommand:onik.onik_titles_open",
+        "onCommand:onik.onik_digits",
+        "onCommand:onik.ki",
+        "onCommand:onik.chl_start",
+        "onCommand:onik.chl_end_o",
+        "onCommand:onik.chl_end_e",
+        "onCommand:onik.ch_acute"
     ],
-    "main": "./extension",
+    "main": "./onik",
     "contributes": {
         "commands": [
             {
-                "command": "extension.onik",
+                "command": "onik.onik",
                 "title": "onik"
             },
             {
-                "command": "extension.onik_titled",
+                "command": "onik.onik_titled",
                 "title": "onik_titled"
             },
             {
-                "command": "extension.onik_titles_open",
+                "command": "onik.onik_titles_open",
                 "title": "onik_titles_open"
             },
             {
-                "command": "extension.onik_digits",
+                "command": "onik.onik_digits",
                 "title": "onik_digits"
             },
             {
-                "command": "extension.ki",
+                "command": "onik.ki",
                 "title": "ki"
             },
             {
-                "command": "extension.chl_start",
+                "command": "onik.chl_start",
                 "title": "chls"
             },
             {
-                "command": "extension.chl_end_o",
+                "command": "onik.chl_end_o",
                 "title": "chlo"
             },
             {
-                "command": "extension.chl_end_e",
+                "command": "onik.chl_end_e",
                 "title": "chle"
             },
             {
-                "command": "extension.ch_acute",
+                "command": "onik.ch_acute",
                 "title": "chac"
             }
         ]
