@@ -1,5 +1,7 @@
 # vs-onik README
 
+### 0.0.4
+
 Provide some onik-functions for vs-code
 
 ## Features
@@ -30,5 +32,3 @@ See https://github.com/EliseyP/onik/tree/master/src/OOnik/py for py-modules
 ## Release Notes
 
 Add change letters 
-
-### 0.0.3

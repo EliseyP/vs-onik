@@ -1,23 +1,23 @@
 {
-    "name": "vsonik",
-    "displayName": "vs-onik",
-    "description": "Onik utilites",
-    "homepage": "https://github.com/EliseyP/vs-onik/blob/master/README.md",
+	"name": "vs-onik",
+	"displayName": "vs-onik",
+	"description": "Onik utilites",
+	"homepage": "https://github.com/EliseyP/vs-onik/blob/master/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/EliseyP/vs-onik.git"
 	},
-    "version": "0.0.3",
-    "publisher": "EliseyP",
-    "engines": {
-        "vscode": "^1.28.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "icon": "Onik.png",
-    "activationEvents": [
-        "onCommand:onik.onik", 
+	"publisher": "EliseyP",
+	"version": "0.0.4",
+	"engines": {
+		"vscode": "^1.49.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "Onik.png",
+	"activationEvents": [
+		"onCommand:onik.onik", 
         "onCommand:onik.onik_titled",
         "onCommand:onik.onik_titles_open",
         "onCommand:onik.onik_digits",
@@ -26,8 +26,9 @@
         "onCommand:onik.chl_end_o",
         "onCommand:onik.chl_end_e",
         "onCommand:onik.ch_acute"
-    ],
-    "main": "./onik",
+
+	],
+	"main": "./onik",
     "contributes": {
         "commands": [
             {
@@ -68,15 +69,20 @@
             }
         ]
     },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "eslint": "^4.11.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
-    }
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.49.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	}
 }
