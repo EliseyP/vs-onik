@@ -87,7 +87,7 @@ function activate(context) {
         }
     }
 
-    let ch_acute = vscode.commands.registerTextEditorCommand('extension.ch_acute', (textEditor) => {
+    let ch_acute = vscode.commands.registerTextEditorCommand('vs-onik.ch_acute', (textEditor) => {
         let onik_obj    = get_onik_string(textEditor, '', '', '', '--ch_acute');
         if (onik_obj){
             let new_string  = onik_obj.text;
@@ -97,7 +97,7 @@ function activate(context) {
     });
 
     
-    let chl_start = vscode.commands.registerTextEditorCommand('extension.chl_start', (textEditor) => {
+    let chl_start = vscode.commands.registerTextEditorCommand('vs-onik.chl_start', (textEditor) => {
         let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_start');
         if (onik_obj){
             let new_string  = onik_obj.text;
@@ -106,7 +106,7 @@ function activate(context) {
         }    
     });
 
-    let chl_end_o = vscode.commands.registerTextEditorCommand('extension.chl_end_o', (textEditor) => {
+    let chl_end_o = vscode.commands.registerTextEditorCommand('vs-onik.chl_end_o', (textEditor) => {
         let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_end_o');
         if (onik_obj){
             let new_string  = onik_obj.text;
@@ -114,7 +114,8 @@ function activate(context) {
             replacer(textEditor, range, new_string);
         }    
     });
-    let chl_end_e = vscode.commands.registerTextEditorCommand('extension.chl_end_e', (textEditor) => {
+    
+    let chl_end_e = vscode.commands.registerTextEditorCommand('vs-onik.chl_end_e', (textEditor) => {
         let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_end_e');
         if (onik_obj){
             let new_string  = onik_obj.text;
@@ -124,7 +125,7 @@ function activate(context) {
         
     });
 
-    let titles_off = vscode.commands.registerTextEditorCommand('extension.onik', (textEditor) => {
+    let titles_off = vscode.commands.registerTextEditorCommand('vs-onik.onik', (textEditor) => {
         let onik_obj    = get_onik_string(textEditor, 'off');
         if (onik_obj){
             let new_string  = onik_obj.text;
@@ -134,7 +135,7 @@ function activate(context) {
         
     });
 
-    let titles_on = vscode.commands.registerTextEditorCommand('extension.onik_titled', (textEditor) => {
+    let titles_on = vscode.commands.registerTextEditorCommand('vs-onik.onik_titled', (textEditor) => {
 
         let onik_obj    = get_onik_string(textEditor, 'on');
         if (onik_obj){
@@ -145,7 +146,7 @@ function activate(context) {
 
     });
 
-    let titles_open = vscode.commands.registerTextEditorCommand('extension.onik_titles_open', (textEditor) => {
+    let titles_open = vscode.commands.registerTextEditorCommand('vs-onik.onik_titles_open', (textEditor) => {
 
         let onik_obj    = get_onik_string(textEditor, 'open');
         if (onik_obj){
@@ -155,7 +156,7 @@ function activate(context) {
         }    
     });
 
-    let digits = vscode.commands.registerTextEditorCommand('extension.onik_digits', (textEditor) => {
+    let digits = vscode.commands.registerTextEditorCommand('vs-onik.onik_digits', (textEditor) => {
 
         let onik_obj    = get_onik_string(textEditor, '', 'to_letters');
         if (onik_obj){
@@ -166,7 +167,7 @@ function activate(context) {
     });
 
 
-    let ki = vscode.commands.registerTextEditorCommand('extension.ki', (textEditor) => {
+    let ki = vscode.commands.registerTextEditorCommand('vs-onik.ki', (textEditor) => {
         let new_string;
                 
         let text;

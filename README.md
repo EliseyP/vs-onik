@@ -1,6 +1,6 @@
 # vs-onik README
 
-### 0.0.4
+### 0.0.5
 
 Provide some onik-functions for vs-code
 

@@ -17,54 +17,54 @@
 	],
 	"icon": "Onik.png",
 	"activationEvents": [
-		"onCommand:onik.onik", 
-        "onCommand:onik.onik_titled",
-        "onCommand:onik.onik_titles_open",
-        "onCommand:onik.onik_digits",
-        "onCommand:onik.ki",
-        "onCommand:onik.chl_start",
-        "onCommand:onik.chl_end_o",
-        "onCommand:onik.chl_end_e",
-        "onCommand:onik.ch_acute"
+		"onCommand:vs-onik.onik",
+        "onCommand:vs-onik.onik_titled",
+        "onCommand:vs-onik.onik_titles_open",
+        "onCommand:vs-onik.onik_digits",
+        "onCommand:vs-onik.ki",
+        "onCommand:vs-onik.chl_start",
+        "onCommand:vs-onik.chl_end_o",
+        "onCommand:vs-onik.chl_end_e",
+        "onCommand:vs-onik.ch_acute"
 
 	],
-	"main": "./onik",
+	"main": "./onik.js",
     "contributes": {
         "commands": [
             {
-                "command": "onik.onik",
+                "command": "vs-onik.onik",
                 "title": "onik"
             },
             {
-                "command": "onik.onik_titled",
+                "command": "vs-onik.onik_titled",
                 "title": "onik_titled"
             },
             {
-                "command": "onik.onik_titles_open",
+                "command": "vs-onik.onik_titles_open",
                 "title": "onik_titles_open"
             },
             {
-                "command": "onik.onik_digits",
+                "command": "vs-onik.onik_digits",
                 "title": "onik_digits"
             },
             {
-                "command": "onik.ki",
+                "command": "vs-onik.ki",
                 "title": "ki"
             },
             {
-                "command": "onik.chl_start",
+                "command": "vs-onik.chl_start",
                 "title": "chls"
             },
             {
-                "command": "onik.chl_end_o",
+                "command": "vs-onik.chl_end_o",
                 "title": "chlo"
             },
             {
-                "command": "onik.chl_end_e",
+                "command": "vs-onik.chl_end_e",
                 "title": "chle"
             },
             {
-                "command": "onik.ch_acute",
+                "command": "vs-onik.ch_acute",
                 "title": "chac"
             }
         ]
