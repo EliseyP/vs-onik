@@ -20,52 +20,102 @@
 		"onCommand:vs-onik.onik",
         "onCommand:vs-onik.onik_titled",
         "onCommand:vs-onik.onik_titles_open",
+
         "onCommand:vs-onik.onik_digits",
+        "onCommand:vs-onik.onik_let2dig",
+
         "onCommand:vs-onik.ki",
+
         "onCommand:vs-onik.chl_start",
         "onCommand:vs-onik.chl_end_o",
         "onCommand:vs-onik.chl_end_e",
-        "onCommand:vs-onik.ch_acute"
-
-	],
+        "onCommand:vs-onik.chl_e",
+        "onCommand:vs-onik.chl_i",
+        "onCommand:vs-onik.chl_i_plur",
+        "onCommand:vs-onik.ch_acute",
+        "onCommand:vs-onik.mac_left",
+        "onCommand:vs-onik.mac_right",
+        "onCommand:vs-onik.mac_end",
+        "onCommand:vs-onik.new_oxia",
+        "onCommand:vs-onik.csl_to_ru"
+    ],
+    
 	"main": "./onik.js",
     "contributes": {
-        "commands": [
+        "commands": [ 
             {
                 "command": "vs-onik.onik",
                 "title": "onik"
             },
             {
                 "command": "vs-onik.onik_titled",
-                "title": "onik_titled"
+                "title": "otit"
             },
             {
                 "command": "vs-onik.onik_titles_open",
-                "title": "onik_titles_open"
+                "title": "otit_open"
             },
+            
             {
                 "command": "vs-onik.onik_digits",
-                "title": "onik_digits"
+                "title": "odig"
             },
+            {
+                "command": "vs-onik.onik_let2dig",
+                "title": "ldig"
+            },
+            
             {
                 "command": "vs-onik.ki",
                 "title": "ki"
             },
             {
                 "command": "vs-onik.chl_start",
-                "title": "chls"
+                "title": "chso"
             },
             {
                 "command": "vs-onik.chl_end_o",
-                "title": "chlo"
+                "title": "cheo"
             },
             {
                 "command": "vs-onik.chl_end_e",
+                "title": "chee"
+            },
+            {
+                "command": "vs-onik.chl_e",
                 "title": "chle"
+            },
+            {
+                "command": "vs-onik.chl_i",
+                "title": "chli"
+            },
+            {
+                "command": "vs-onik.chl_i_plur",
+                "title": "chlip"
             },
             {
                 "command": "vs-onik.ch_acute",
                 "title": "chac"
+            },
+            {
+                "command": "vs-onik.mac_left",
+                "title": "macl"
+            },
+            {
+                "command": "vs-onik.mac_right",
+                "title": "macr"
+            },
+            {
+                "command": "vs-onik.mac_end",
+                "title": "mace"
+            },
+            {
+                "command": "vs-onik.new_oxia",
+                "title": "noxi"
+            },
+            {
+                "command": "vs-onik.csl_to_ru",
+                "title": "csru"
             }
         ]
     },

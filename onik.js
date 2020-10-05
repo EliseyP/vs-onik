@@ -6,167 +6,143 @@ const vscode = require('vscode');
 // your extension is activated the very first time the command is executed
 function activate(context) {
 
-    function get_onik_string(textEditor, titles='off', digits='', chletter='', chacute='') {
-        let new_string;
-                
-        let text;
-        const document = textEditor.document;
-        let start;
-        let end;
-        let wordAtCursorRange;
-        if (! textEditor.selection.isEmpty) {
-            let selection = textEditor.selection;
-            text = textEditor.document.getText(selection);
-            start = selection.start;
-            end = selection.end;
-        }
-        else {
-            // цифры только в выделенном фрагменте
-            // if (digits || titles == 'open'){
-            if (titles == 'open'){
-                return;
-            }
-            
-            const cursor_position = textEditor.selection.active;
-            wordAtCursorRange = document.getWordRangeAtPosition(cursor_position);
-            
-            if ( chacute || chletter) {
-                text = textEditor.document.getText(wordAtCursorRange);
-                start = wordAtCursorRange.start;
-                end = wordAtCursorRange.end;
-            }
-            else{
-                text = textEditor.document.getText();
-                const lastLine = document.lineAt(document.lineCount - 1);
-                start = new vscode.Position(0, 0);
-                end = new vscode.Position(document.lineCount - 1, lastLine.text.length);  
-            }
-        }
-
-        const range = new vscode.Range(start, end);
-
-        const { execSync } = require('child_process');
-        let param;
-        if (titles) {
-            param = ' -t ' + '\'' + titles + '\'';
-        }
-        if (digits) {
-            param = (digits == 'to_letters') ? ' -l ' : ' -L' ;
-        }
-        if  (chletter) {
-            param =  '\'' + chletter + '\'';
-        }
-        if (chacute) {
-            param = '\'' + chacute + '\'';
-        }
-
-        param = param + ' \'' + text + '\'' 
-        
-        // vscode.window.showInformationMessage(param);
-        // new_string = execSync('"$HOME/opt/scripts/py/OOnik/onik_run.py" ' + param).toString();
-        new_string = execSync('"onik_run.py" ' + param).toString();
-        // vscode.window.showInformationMessage(new_string);
-
-        var out = {};
-
-        if ( new_string ) {
-            out.text = new_string;
-            out.range = range;
-            return out;
-        }    
-
-    }
-
     function replacer(textEditor, range, new_string) {
         if ( new_string ) {
             new_string = new_string.replace(/\n$/, "");
-            //vscode.window.showInformationMessage(new_string);
             textEditor.edit((editBuilder) => {
                 editBuilder.replace(range, new_string);
             });
         }
     }
 
-    let ch_acute = vscode.commands.registerTextEditorCommand('vs-onik.ch_acute', (textEditor) => {
-        let onik_obj    = get_onik_string(textEditor, '', '', '', '--ch_acute');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-    });
+    function oniker(name, option){
+        
+        function get_onik_string_inner(textEditor, flags) {
+            
+            function exec_onik_script(command_str){
+                const { execSync } = require('child_process');
+                try {
+                    return execSync(command_str).toString();
+                } catch (error) {
+                    vscode.window.showInformationMessage('!Error run onik_run.py!');
+                }
+            }
+
+            var new_string;
+
+            let text;
+            const document = textEditor.document;
+            let start;
+            let end;
+            let wordAtCursorRange;
+            // если есть выделение
+            if (! textEditor.selection.isEmpty) {
+                let selection = textEditor.selection;
+                text = textEditor.document.getText(selection);
+                start = selection.start;
+                end = selection.end;
+            }
+            // Если нет выделения
+            else {
+                // цифры только в выделенном фрагменте
+                if (flags == '-t=open'){
+                    return;
+                }
+                
+                const cursor_position = textEditor.selection.active;
+                wordAtCursorRange = document.getWordRangeAtPosition(cursor_position);
+                
+                // Для слова под курсором
+                if ( 
+                    flags == '--new_oxia' ||
+                    flags == '--ch_acute' || 
+                    flags == '--move_acute_end' ||
+                    flags == '--move_acute_backward' ||
+                    flags == '--move_acute_forward' ||
+                    flags == '--chlett_at_start' ||
+                    flags == '--chlett_at_end_e' ||
+                    flags == '--chlett_at_end_o' ||
+                    flags == '--chlett_e' ||
+                    flags == '--chlett_i' ||
+                    flags == '--chlett_i_pluralis'
+                ) {
+                    text = textEditor.document.getText(wordAtCursorRange);
+                    start = wordAtCursorRange.start;
+                    end = wordAtCursorRange.end;
+                }
+                // для всего текста
+                else{
+                    text = textEditor.document.getText();
+                    const lastLine = document.lineAt(document.lineCount - 1);
+                    start = new vscode.Position(0, 0);
+                    end = new vscode.Position(document.lineCount - 1, lastLine.text.length);  
+                };
+            };
+    
+            const range = new vscode.Range(start, end);
+    
+            let param;
+            param = flags + ' \'' + text + '\''; 
+            
+            // vscode.window.showInformationMessage(param);
+            let command = "onik_run.py " + param;
+            
+            new_string =  exec_onik_script(command);
+
+            var out = {};
+    
+            if ( new_string ) {
+                out.text = new_string;
+                out.range = range;
+                return out;
+            }    
+    
+        }
+
+        function replacer_inner(textEditor, range, new_string) {
+            if ( new_string ) {
+                new_string = new_string.replace(/\n$/, "");
+                textEditor.edit((editBuilder) => {
+                    editBuilder.replace(range, new_string);
+                });
+            }
+        }
+    
+
+        let full_name = 'vs-onik.'+name
+        vscode.commands.registerTextEditorCommand(full_name, (textEditor) => {
+            let onik_obj    = get_onik_string_inner(textEditor, option);
+            if (onik_obj){
+                let new_string  = onik_obj.text;
+                let range       = onik_obj.range;
+                replacer_inner(textEditor, range, new_string);
+            };    
+        });
+    };
 
     
-    let chl_start = vscode.commands.registerTextEditorCommand('vs-onik.chl_start', (textEditor) => {
-        let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_start');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-    });
+    let dig_to_l = oniker('onik_digits', '--digits_to_letters');
+    let l_to_dig = oniker('onik_let2dig', '--digits_from_letters');
 
-    let chl_end_o = vscode.commands.registerTextEditorCommand('vs-onik.chl_end_o', (textEditor) => {
-        let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_end_o');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-    });
+    let chl_start = oniker('chl_start', '--chlett_at_start');
+    let chl_end_o = oniker('chl_end_o', '--chlett_at_end_o');
+    let chl_end_e = oniker('chl_end_e', '--chlett_at_end_e');
+    let chl_e = oniker('chl_e', '--chlett_e');
+    let chl_i = oniker('chl_i', '--chlett_i');
+    let chl_i_plur = oniker('chl_i_plur', '--chlett_i_pluralis');
+
+    let titles_off = oniker('onik', '-t=off');
+    let titles_on = oniker('onik_titled', '-t=on');
+    let titles_open = oniker('onik_titles_open', '-t=open');
+
+    let ch_acute = oniker('ch_acute', '--ch_acute')
+    let mac_left = oniker('mac_left', '--move_acute_backward');
+    let mac_right = oniker('mac_right', '--move_acute_forward');
+    let mac_end = oniker('mac_end', '--move_acute_end');
+    let new_oxia = oniker('new_oxia', '--new_oxia');
+
+    let csl_to_ru = oniker('csl_to_ru', '--csl_to_russian');
     
-    let chl_end_e = vscode.commands.registerTextEditorCommand('vs-onik.chl_end_e', (textEditor) => {
-        let onik_obj    = get_onik_string(textEditor, '', '', '--chlett_at_end_e');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-        
-    });
-
-    let titles_off = vscode.commands.registerTextEditorCommand('vs-onik.onik', (textEditor) => {
-        let onik_obj    = get_onik_string(textEditor, 'off');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-        
-    });
-
-    let titles_on = vscode.commands.registerTextEditorCommand('vs-onik.onik_titled', (textEditor) => {
-
-        let onik_obj    = get_onik_string(textEditor, 'on');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-
-    });
-
-    let titles_open = vscode.commands.registerTextEditorCommand('vs-onik.onik_titles_open', (textEditor) => {
-
-        let onik_obj    = get_onik_string(textEditor, 'open');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-    });
-
-    let digits = vscode.commands.registerTextEditorCommand('vs-onik.onik_digits', (textEditor) => {
-
-        let onik_obj    = get_onik_string(textEditor, '', 'to_letters');
-        if (onik_obj){
-            let new_string  = onik_obj.text;
-            let range       = onik_obj.range;
-            replacer(textEditor, range, new_string);
-        }    
-    });
-
-
     let ki = vscode.commands.registerTextEditorCommand('vs-onik.ki', (textEditor) => {
         let new_string;
                 
@@ -190,16 +166,34 @@ function activate(context) {
 
     });
 
+    context.subscriptions.push(ki);
 
     context.subscriptions.push(titles_off);
     context.subscriptions.push(titles_on);
     context.subscriptions.push(titles_open);
-    context.subscriptions.push(digits);
-    context.subscriptions.push(ki);
+
+    context.subscriptions.push(dig_to_l);
+    context.subscriptions.push(l_to_dig);
+
     context.subscriptions.push(chl_start);
     context.subscriptions.push(chl_end_o);
     context.subscriptions.push(chl_end_e);
+    context.subscriptions.push(chl_e);
+    context.subscriptions.push(chl_i);
+    context.subscriptions.push(chl_i_plur);
+
     context.subscriptions.push(ch_acute);
+    context.subscriptions.push(mac_left);
+    context.subscriptions.push(mac_right);
+    context.subscriptions.push(mac_end);
+    context.subscriptions.push(new_oxia);
+
+    context.subscriptions.push(csl_to_ru);
+
+    context.subscriptions.push();
+    context.subscriptions.push();
+    context.subscriptions.push();
+    context.subscriptions.push();
 }
 exports.activate = activate;
 
